@@ -45,8 +45,8 @@ const UserRewards = (props) => {
   }, [props.transactions, props.user]);
 
   return (
-    <div>
         <div className="left">
+            <h4>User Rewards</h4>
           <table className="customers">
             <thead>
               <tr>
@@ -78,7 +78,6 @@ const UserRewards = (props) => {
             </tbody>
           </table>
         </div>
-    </div>
   );
 };
 

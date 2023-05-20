@@ -15,16 +15,22 @@ const TransactionsList = (props) => {
 
                 </thead>
                 <tbody>
-                {props.transactions.map((item) => {
-                    
-                        return <tr key={item.id}>
-                        <td>{item["date"]}</td>
-                        <td>{item["amount"]}</td>
-                        <td>{calRew(item["amount"])}</td>
-                        </tr>
+                    {props.transactions.map((item) => {
+                    const formattedDate = new Date(item.date).toLocaleDateString("en-US", {
+                        year: "numeric",
+                        month: "numeric",
+                        day: "numeric",
+                    });
 
-                })}
-                </tbody>
+                    return (
+                        <tr key={item.id}>
+                        <td>{formattedDate}</td>
+                        <td>{item.amount}</td>
+                        <td>{calRew(item.amount)}</td>
+                        </tr>
+                    );
+                    })}
+            </tbody>
             </table>
 
         </div>

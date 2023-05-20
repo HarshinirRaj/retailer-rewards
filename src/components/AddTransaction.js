@@ -20,7 +20,6 @@ const AddTransaction = (props) => {
   
     return (
         <div>
-            <h5>Only Transactions between 01/01/2020 and 03/31/2020 will be added</h5>
             <form onSubmit={submitHandler}>
                 <div className={classes.control}>
                 <label htmlFor='date'>Date</label>

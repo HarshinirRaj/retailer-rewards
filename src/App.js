@@ -1,7 +1,7 @@
 import React, { useState, useEffect, Fragment, useCallback } from 'react';
 import AddTransaction from './components/AddTransaction';
 import './App.css';
-import data from './data';
+
 import TransactionsList from './components/TransactionsList';
 import UserRewards from './components/UserRewards';
 
@@ -53,10 +53,14 @@ function App() {
 
   useEffect(() => {
     fetchTransactionsHandler();
-    setUsers([...Object.keys(data)]);
-  }, [fetchTransactionsHandler]);
+  }, [fetchTransactionsHandler, ]);
 
-const userSelectHandler = (val) => {
+  useEffect(() => {
+    setUsers([...new Set(transactions.map(item => item.user))]);
+  }, [transactions]);
+
+
+  const userSelectHandler = (val) => {
     setCurrentUser(val);
     filterUserData(val)
   };
@@ -69,13 +73,32 @@ const userSelectHandler = (val) => {
   }
 
   async function addTransactionHandler(transaction) {
-    await fetch('https://retailer-rewards-default-rtdb.firebaseio.com/transactions.json', {
-      method: 'POST',
-      body: JSON.stringify(transaction),
-      headers: {
-        'Content-Type': 'application/json'
+    try {
+      const response = await fetch('https://retailer-rewards-default-rtdb.firebaseio.com/transactions.json', {
+        method: 'POST',
+        body: JSON.stringify(transaction),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to add transaction.');
       }
-    });
+
+      // Update transactions after successful addition
+      const data = await response.json();
+      const newTransaction = {
+        id: data.name,
+        user: transaction.user,
+        date: transaction.date,
+        amount: transaction.amount
+      };
+      setTransactions(prevTransactions => [...prevTransactions, newTransaction]);
+      filterUserData(currentUser);
+    } catch (error) {
+      setError(error.message);
+    }
   }
 
   let content = <p style={{ margin: "auto" }}>Found no transactions!</p>;
@@ -97,7 +120,7 @@ const userSelectHandler = (val) => {
 
   return (
     <div>
-      <h2 style={{ textAlign: "center" }}>User Rewards</h2>
+      <h2 style={{ textAlign: "center" }}>Retailer Rewards</h2>
       <div className='layout'>
         <div className='user'>
           <h3> User :</h3>
@@ -112,6 +135,7 @@ const userSelectHandler = (val) => {
         </div>
         <div>
           <p className='link' onClick={formVisibilityHandler}>Add Transaction</p>
+          <h5>Rewards are calculated for only Jan, Feb and Mar</h5>
           {showForm && <AddTransaction onAddTransaction={addTransactionHandler} user={currentUser}
             formVisibilityHandler={formVisibilityHandler} />}
         </div>
