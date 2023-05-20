@@ -1,0 +1,106 @@
+body {
+  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
+  background-color: transparent
+}
+
+.layout{
+  margin: 20px 20px 20px 20px;
+  font-size: 20px;
+  border: 1px solid;
+  padding-bottom: 20px;
+  text-align: center;
+}
+
+.left{
+  width: 50%;
+  float: left;
+}
+
+.left, .right {
+  padding: 0 25px;
+}
+
+.text-center {
+  width: 50%;
+}
+
+.right{
+  width : 50%;
+  float: right;
+}
+
+select{
+  height: 38px;
+  color: white;
+  font-size: smaller;
+  padding: 10px;
+  background-color: rgb(161 50 79 / 90%);
+  -webkit-appearance: none;
+}
+
+.user{
+  display: flex;
+  align-items: center;
+  margin-left: 44%;
+}
+
+h3{
+  margin-right: 10px;
+}
+
+.content{
+  display: flex;
+  margin: 50px;
+}
+
+.link {
+  color : blue
+}
+
+.link:hover{
+  text-decoration: underline;
+} 
+
+
+/* ------------------- */
+
+
+thead, body {
+  text-align: center;
+}
+
+.customers {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.customers td, .customers th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.customers tr:nth-child(even){background-color: #f2f2f2;}
+
+.customers tr:hover {background-color: #ddd;}
+
+.customers th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: center;
+  background-color: rgb(161 50 79 / 90%);;
+
+  color: white;
+}
+
+button {
+  text-decoration : none;
+  cursor: pointer;
+  font: inherit;
+  padding: 0.5rem 1.5rem;
+  border: none;
+  border-radius: 4px;
+  background-color: rgb(161 50 79 / 90%);;
+  color: white;
+}
+
