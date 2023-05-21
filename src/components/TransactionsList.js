@@ -4,7 +4,7 @@ const TransactionsList = (props) => {
     if(props.transactions.length > 0){
         return(
             <div className='right'>
-                <h4>User Transactions</h4>
+                <h4>Transactions</h4>
                 <table className="customers">
                 <thead>
                 <tr>

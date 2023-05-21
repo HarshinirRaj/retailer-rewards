@@ -5,7 +5,7 @@ const UserRewards = (props) => {
 
   useEffect(() => {
 
-    let monthT = {
+    let monthData = {
         1: {
           amounts: [],
           rewards: 0,
@@ -27,26 +27,26 @@ const UserRewards = (props) => {
         month.getMonth() + 1 === 2 ||
         month.getMonth() + 1 === 3
       ) {
-        monthT[month.getMonth() + 1]["amounts"].push(
+        monthData[month.getMonth() + 1]["amounts"].push(
             props.transactions[i]["amount"]
         );
       }
     }
-    for (let key in monthT) {
+    for (let key in monthData) {
       let total_month_rewards = 0;
-      for (let i = 0; i < monthT[key]["amounts"].length; i++) {
-        let price = monthT[key]["amounts"][i];
+      for (let i = 0; i < monthData[key]["amounts"].length; i++) {
+        let price = monthData[key]["amounts"][i];
 
         total_month_rewards = total_month_rewards + calRew(price);
       }
-      monthT[key]["rewards"] = total_month_rewards;
+      monthData[key]["rewards"] = total_month_rewards;
     }
-    setCalcRewards({ ...monthT });
+    setCalcRewards({ ...monthData });
   }, [props.transactions, props.user]);
 
   return (
         <div className="left">
-            <h4>User Rewards</h4>
+            <h4> Rewards</h4>
           <table className="customers">
             <thead>
               <tr>
@@ -86,7 +86,7 @@ function calRew(price) {
   if (price > 100) {
     rewards = (price - 100) * 2;
   }
-  if (price > 50) {
+  if (price > 50 ) {
     rewards = rewards + 50;
   }
   return rewards;

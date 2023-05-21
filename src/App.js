@@ -59,6 +59,9 @@ function App() {
     setUsers([...new Set(transactions.map(item => item.user))]);
   }, [transactions]);
 
+  useEffect(() => {
+    filterUserData(currentUser);
+  }, [transactions, currentUser]);
 
   const userSelectHandler = (val) => {
     setCurrentUser(val);
@@ -67,9 +70,9 @@ function App() {
 
   const filterUserData = (selectedUser) => {
     const filteredUserData = transactions.filter(
-    (item) => item.user === selectedUser
-  );
-  setFilteredUsers(filteredUserData)
+      (item) => item.user === selectedUser
+    );
+    setFilteredUsers(filteredUserData)
   }
 
   async function addTransactionHandler(transaction) {
@@ -94,8 +97,10 @@ function App() {
         date: transaction.date,
         amount: transaction.amount
       };
-      setTransactions(prevTransactions => [...prevTransactions, newTransaction]);
-      filterUserData(currentUser);
+      setTransactions(prevTransactions => {
+        return [...prevTransactions, newTransaction]
+      });
+      console.log(transactions);
     } catch (error) {
       setError(error.message);
     }
