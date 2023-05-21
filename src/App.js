@@ -106,8 +106,8 @@ function App() {
     }
   }
 
-  let content = <p style={{ margin: "auto" }}>Found no transactions!</p>;
-  let rewardsContent = <p style={{ margin: "auto" }}>Found no rewards!</p>;
+  let content = <p style={{ margin: "auto" }} className='text-theme'>Found no transactions!</p>;
+  let rewardsContent = <p style={{ margin: "auto" }} className='text-theme'>Found no rewards!</p>;
 
   if (filteredUsers.length > 0) {
     content = <TransactionsList transactions={filteredUsers}/>;
@@ -125,10 +125,10 @@ function App() {
 
   return (
     <div>
-      <h2 style={{ textAlign: "center" }}>Retailer Rewards</h2>
+      <h2 style={{ textAlign: "center" }} className="header text-theme">Retailer Rewards</h2>
       <div className='layout'>
         <div className='user'>
-          <h3> User :</h3>
+          <p className='text-theme'> User :</p>
           <select onChange={e => userSelectHandler(e.target.value)} value={currentUser} >
             <option value="" disabled>Select User</option>
             {users.map((item, index) => {
@@ -138,9 +138,15 @@ function App() {
             })}
           </select>
         </div>
+          {
+            (currentUser && 
+              <p className='link' onClick={formVisibilityHandler}>
+                <span>Add Transaction <span className="plus-icon">+</span></span>
+              </p>
+            )
+          }
         <div>
-          <p className='link' onClick={formVisibilityHandler}>Add Transaction</p>
-          <h5>Rewards are calculated for only Jan, Feb and Mar</h5>
+          <p className='text-theme rewards-help-text'>Rewards are calculated for only Jan, Feb and Mar</p>
           {showForm && <AddTransaction onAddTransaction={addTransactionHandler} user={currentUser}
             formVisibilityHandler={formVisibilityHandler} />}
         </div>

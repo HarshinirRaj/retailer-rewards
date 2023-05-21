@@ -46,7 +46,7 @@ const UserRewards = (props) => {
 
   return (
         <div className="left">
-            <h4> Rewards</h4>
+            <h4 className="text-theme"> Rewards</h4>
           <table className="customers">
             <thead>
               <tr>
