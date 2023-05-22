@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import AddTransaction from './components/AddTransaction';
 import './App.css';
 
@@ -14,10 +14,6 @@ function App() {
   const [transactions, setTransactions] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-
-  const formVisibilityHandler = () => {
-    setShowForm(!showForm);
-  };
 
   const fetchTransactionsHandler = useCallback(async () => {
     setIsLoading(true);
@@ -59,10 +55,6 @@ function App() {
     setUsers([...new Set(transactions.map(item => item.user))]);
   }, [transactions]);
 
-  useEffect(() => {
-    filterUserData(currentUser);
-  }, [transactions, currentUser]);
-
   const userSelectHandler = (val) => {
     setCurrentUser(val);
     filterUserData(val)
@@ -74,6 +66,14 @@ function App() {
     );
     setFilteredUsers(filteredUserData)
   }
+
+  useEffect(() => {
+    filterUserData(currentUser);
+  }, [transactions, currentUser]);
+
+  const formVisibilityHandler = () => {
+    setShowForm(!showForm);
+  };
 
   async function addTransactionHandler(transaction) {
     try {
@@ -90,9 +90,7 @@ function App() {
       }
 
       // Update transactions after successful addition
-      const data = await response.json();
       const newTransaction = {
-        id: data.name,
         user: transaction.user,
         date: transaction.date,
         amount: transaction.amount
